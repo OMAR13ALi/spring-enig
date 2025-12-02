@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import tn.enig.dao.IAdherant;
 import tn.enig.dao.IEmprunt;
 import tn.enig.dao.ILivre;
+import tn.enig.model.Adherant;
 import tn.enig.model.Emprunt;
 import tn.enig.model.Livre;
+
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -65,8 +68,46 @@ public class AppController {
         return "redirect:/listesadherant";
     }
 
-   /* @GetMapping("/listeempruntlivre/{id}")
-    public String listeempruntlivre(@PathVariable("id") Integer id, Model model) {
-        Livre livre =
-    }*/
+    @GetMapping("/empruntsadherant/{ida}")
+    public String listeEmpruntsAdherant(@PathVariable("ida") Integer ida, Model model) {
+        Adherant adherant = adherantdoa.findById(ida).orElse(null);
+        if (adherant == null) {
+            return "redirect:/listesadherant";
+        }
+        List<Emprunt> emprunts = empruntdoa.findByAdherant(adherant);
+        model.addAttribute("adherant", adherant);
+        model.addAttribute("emprunts", emprunts);
+        return "empruntsadherant";
+    }
+
+    @GetMapping("/empruntslivre/{id}")
+    public String listeEmpruntsLivre(@PathVariable("id") Integer id, Model model) {
+        Livre livre = livredoa.findById(id).orElse(null);
+        if (livre == null) {
+            return "redirect:/listeslivre";
+        }
+        List<Emprunt> emprunts = empruntdoa.findByLivre(livre);
+        model.addAttribute("livre", livre);
+        model.addAttribute("emprunts", emprunts);
+        return "empruntslivre";
+    }
+
+    @GetMapping("/deletelivre/{id}")
+    public String deleteLivre(@PathVariable("id") Integer id) {
+        livredoa.deleteById(id);
+        return "redirect:/listeslivre";
+    }
+
+    @GetMapping("/deleteemprunt/{ide}")
+    public String deleteEmprunt(@PathVariable("ide") Integer ide) {
+        empruntdoa.deleteById(ide);
+        return "redirect:/listesadherant";
+    }
+
+    // Custom 403 error page handler
+    @GetMapping("/403")
+    public String accessDenied() {
+        return "403";
+    }
+
 }

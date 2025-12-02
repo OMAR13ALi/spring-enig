@@ -21,7 +21,7 @@
             <td>${adherant.ida}</td>
             <td>${adherant.nom} ${adherant.prenom} </td>
             <td>
-                <a href="${cxt}/emprunts/${adherant.id}">Liste des emprunt</a>
+                <a href="${cxt}/empruntsadherant/${adherant.ida}">Liste des emprunts</a>
             </td>
         </tr>
     </c:forEach>

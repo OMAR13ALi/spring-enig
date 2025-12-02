@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <c:set var="cxt" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -9,7 +11,7 @@
 </head>
 <body>
 <h1>Gestion d'une Bibliotheque</h1>
-<h2>Liste des Départements</h2>
+<h2>Liste des Dï¿½partements</h2>
 <table border="1">
   <tr>
     <th>ID</th>
@@ -21,7 +23,7 @@
       <td>${livre.id}</td>
       <td>${livre.title}</td>
       <td>
-        <a href="${cxt}/emprunts/${livre.id}">Liste des emprunt</a>
+        <a href="${cxt}/empruntslivre/${livre.id}">Liste des emprunts</a>
       </td>
     </tr>
   </c:forEach>
